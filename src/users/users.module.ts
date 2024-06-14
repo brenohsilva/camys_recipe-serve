@@ -1,9 +1,24 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { UsersController } from './users.controller';
+import { PrismaService } from 'src/prisma.service';
+import { CreateUserUseCase } from './use_cases/create_user';
+import { UpdateUserUseCase } from './use_cases/update_user';
+import { DeleteUserUseCase } from './use_cases/delete_user';
+import { FindAllUsersUseCase } from './use_cases/findAll_users';
+import { FindUserUseCase } from './use_cases/find_user';
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [
+    PrismaService,
+    UserService,
+    CreateUserUseCase,
+    UpdateUserUseCase,
+    DeleteUserUseCase,
+    FindAllUsersUseCase,
+    FindUserUseCase,
+  ],
 })
 export class UsersModule {}

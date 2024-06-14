@@ -1,34 +1,55 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UsersService } from './users.service';
+/* eslint-disable prettier/prettier */
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserUseCase } from './use_cases/create_user';
+import { UpdateUserUseCase } from './use_cases/update_user';
+import { FindUserUseCase } from './use_cases/find_user';
+import { FindAllUsersUseCase } from './use_cases/findAll_users';
+import { DeleteUserUseCase } from './use_cases/delete_user';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UserService,
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
+    private readonly findUserUseCase: FindUserUseCase,
+    private readonly findAllUsersUseCase: FindAllUsersUseCase,
+    private readonly deleteUserUseCase: DeleteUserUseCase
+  ) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    return await this.createUserUseCase.execute(createUserDto);
   }
 
   @Get()
   findAll() {
-    return this.usersService.findAll();
+    return this.findAllUsersUseCase.execute();
   }
 
-  @Get(':id')
+  @Get('/:id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.findUserUseCase.execute(id);
   }
 
-  @Patch(':id')
+  @Patch('/:id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+    return this.updateUserUseCase.execute(id, updateUserDto);
   }
 
-  @Delete(':id')
+  @Delete('/:id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.deleteUserUseCase.execute(id);
   }
 }

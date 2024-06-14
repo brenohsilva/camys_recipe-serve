@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ingredients {
+  id         Int     @id @default(autoincrement())
+  recipes_id Int
+  name       String  @db.VarChar(255)
+  type       String? @db.VarChar(45)
+  recipes    recipes @relation(fields: [recipes_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ingredients_ibfk_1")
+
+  @@index([recipes_id], map: "recipes_id")
+}
+
+model recipes {
+  id          Int           @id @default(autoincrement())
+  users_id    Int
+  name        String?       @db.VarChar(255)
+  image       String?       @db.Text
+  type        Int?
+  category    String?       @db.VarChar(45)
+  time        Int?
+  portions    Int?
+  ingredients ingredients[]
+  users       users         @relation(fields: [users_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "recipes_ibfk_1")
+  steps       steps[]
+
+  @@index([users_id], map: "users_id")
+}
+
+model steps {
+  id         Int     @id @default(autoincrement())
+  recipes_id Int
+  step       String  @db.VarChar(255)
+  type       String? @db.VarChar(45)
+  recipes    recipes @relation(fields: [recipes_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "steps_ibfk_1")
+
+  @@index([recipes_id], map: "recipes_id")
+}
+
+model users {
+  id           Int       @id @default(autoincrement())
+  name         String?   @db.VarChar(255)
+  email        String    @db.VarChar(255)
+  password     String?   @db.Text
+  date_created DateTime  @default(now()) @db.Timestamp(0)
+  date_updated DateTime  @default(now()) @db.Timestamp(0)
+  recipes      recipes[]
+}
