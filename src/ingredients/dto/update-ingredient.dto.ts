@@ -1,4 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types';
+/* eslint-disable prettier/prettier */
+
 import { CreateIngredientDto } from './create-ingredient.dto';
 
-export class UpdateIngredientDto extends PartialType(CreateIngredientDto) {}
+export class UpdateIngredientDto  {}
