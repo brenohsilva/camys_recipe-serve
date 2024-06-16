@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-export class CreateRecipeDto {
-    users_id: number;
+
+export class RecipeResponseDto {
     name: string;
     image?: string;
     type: number;

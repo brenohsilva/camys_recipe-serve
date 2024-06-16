@@ -1,4 +1,10 @@
+/* eslint-disable prettier/prettier */
 
-import { CreateRecipeDto } from './create-recipe.dto';
-
-export class UpdateRecipeDto {}
+export class UpdateRecipeDto {
+    name?: string;
+    image?: string;
+    type?: number;
+    category?: string;
+    time?: number;
+    portions?: number;
+}
