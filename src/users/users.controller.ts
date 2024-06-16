@@ -7,8 +7,9 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserUseCase } from './use_cases/create_user';
@@ -16,11 +17,11 @@ import { UpdateUserUseCase } from './use_cases/update_user';
 import { FindUserUseCase } from './use_cases/find_user';
 import { FindAllUsersUseCase } from './use_cases/findAll_users';
 import { DeleteUserUseCase } from './use_cases/delete_user';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(
-    private readonly usersService: UserService,
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
     private readonly findUserUseCase: FindUserUseCase,
@@ -33,6 +34,7 @@ export class UsersController {
     return await this.createUserUseCase.execute(createUserDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.findAllUsersUseCase.execute();

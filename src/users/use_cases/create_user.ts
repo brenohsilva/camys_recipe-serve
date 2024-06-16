@@ -2,6 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserService } from '../user.service';
+import { encodePassword } from 'src/utils/bcrypt';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -9,8 +10,10 @@ export class CreateUserUseCase {
 
   async execute(data: CreateUserDto) {
     try {
-        const user = await this.userService.create(data)
-        return user
+      const password = encodePassword(data.password)
+        const user = {...data, password}
+        const response = await this.userService.create(user)
+        return response
     } catch (error) {
         console.error( "Estamos com problemas", error)
         return {'message':'Failed to create the user'}

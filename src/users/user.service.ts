@@ -25,8 +25,18 @@ export class UserService {
     return userResponse
   }
 
-  async create(createUserDto: CreateUserDto): Promise<users> {
-    const userResponse = await this.prisma.users.create({
+  findOneByEmail(email: string){
+    const userResponse = this.prisma.users.findFirst({
+      where: {
+        email
+      }
+    })
+
+    return userResponse
+  }
+
+  create(createUserDto: CreateUserDto): Promise<users> {
+    const userResponse =  this.prisma.users.create({
       data: createUserDto,
     });
 
