@@ -20,7 +20,7 @@ import {
       }
       try {
         const secret = process.env.JWT_SECRET
-        console.log(secret)
+        
         const payload = await this.jwtService.verifyAsync(
           token,
           {
