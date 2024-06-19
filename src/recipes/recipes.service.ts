@@ -44,8 +44,12 @@ export class RecipesService {
     }
   }
 
-  findAll() {
-    const recipeResponse = this.prisma.recipes.findMany()
+  findAll(id: number) {
+    const recipeResponse = this.prisma.recipes.findMany({
+      where: {
+        users_id: id
+      }
+    })
     return recipeResponse;
   }
 

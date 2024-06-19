@@ -15,8 +15,9 @@ export class CreateRecipeUseCase {
         const accessToken = JwtToken(authorizationHeader);
         const current_user = await this.findUserByToken.execute(accessToken)
         
+        
         const recipe: CreateRecipeDto = {
-            users_id: current_user,
+            users_id: current_user.sub,
             ...data
         }
         const response = await this.recipeService.create(recipe)
