@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-
-import { CreateIngredientDto } from './create-ingredient.dto';
-
-export class UpdateIngredientDto  {}
+export class UpdateIngredientDto  {
+    name?: string;
+    type?: string;
+}
