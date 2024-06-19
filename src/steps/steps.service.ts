@@ -1,26 +1,49 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { CreateStepDto } from './dto/create-step.dto';
 import { UpdateStepDto } from './dto/update-step.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class StepsService {
+  constructor(private prisma: PrismaService) {}
   create(createStepDto: CreateStepDto) {
-    return 'This action adds a new step';
+    const stepResponse = this.prisma.steps.create({
+      data: createStepDto
+    })
+    return stepResponse;
   }
 
-  findAll() {
-    return `This action returns all steps`;
+  findAll(id: number) {
+    const stepResponse = this.prisma.steps.findMany({
+      where: {
+        recipes_id: id
+      }
+    })
+    return stepResponse
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} step`;
+    const stepResponse = this.prisma.steps.findUnique({
+      where: {
+        id
+      }
+    })
+    return stepResponse;
   }
 
   update(id: number, updateStepDto: UpdateStepDto) {
-    return `This action updates a #${id} step`;
+    const stepResponse = this.prisma.steps.update({
+      where: {id},
+      data: updateStepDto
+    })
+    return stepResponse;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} step`;
+    const stepResponse = this.prisma.steps.delete({
+      where: {id}
+    })
+    return stepResponse;
   }
 }
