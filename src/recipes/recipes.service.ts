@@ -62,4 +62,30 @@ export class RecipesService {
     return recipeResponse;
   }
 
+  findCompletedRecipe(id: number){
+    const recipeResponse = this.prisma.recipes.findUnique({
+      where: {
+        id
+      },
+      include: {
+        ingredients: {
+          select: {
+            id: true,
+            name: true,
+            type: true
+          }
+        },
+        steps: {
+          select: {
+            id: true,
+            step: true,
+            type: true
+          }
+        }
+      }
+    })
+    return recipeResponse
+  }
+
+
 }

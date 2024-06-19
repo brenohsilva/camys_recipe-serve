@@ -9,6 +9,7 @@ import { UpdateRecipeUseCase } from './use_cases/update_recipe';
 import { FindAllRecipesUseCase } from './use_cases/find_all_recipes';
 import { FindRecipeUseCase } from './use_cases/find_recipe';
 import { DeleteRecipeUseCase } from './use_cases/delete_recipe';
+import { FindCompletedRecipeUseCase } from './use_cases/find_completed_recipe';
 
 @Module({
   controllers: [RecipesController],
@@ -21,6 +22,7 @@ import { DeleteRecipeUseCase } from './use_cases/delete_recipe';
     FindRecipeUseCase,
     DeleteRecipeUseCase,
     FindUserByTokenUseCase,
+    FindCompletedRecipeUseCase
   ],
 })
 export class RecipesModule {}
