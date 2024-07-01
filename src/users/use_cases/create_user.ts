@@ -13,7 +13,7 @@ export class CreateUserUseCase {
       const password = encodePassword(data.password)
         const user = {...data, password}
         const response = await this.userService.create(user)
-        return response
+        return response.id
     } catch (error) {
         console.error( "Estamos com problemas", error)
         return {'message':'Failed to create the user'}
