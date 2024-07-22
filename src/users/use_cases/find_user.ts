@@ -12,7 +12,7 @@ export class FindUserUseCase {
         return user
     } catch (error) {
         console.error(error)
-        return 'Failed to find the user'
+        return {'message': 'Failed to find the user'}
     }
   }
 }

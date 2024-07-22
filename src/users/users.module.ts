@@ -8,6 +8,7 @@ import { UpdateUserUseCase } from './use_cases/update_user';
 import { DeleteUserUseCase } from './use_cases/delete_user';
 import { FindAllUsersUseCase } from './use_cases/findAll_users';
 import { FindUserUseCase } from './use_cases/find_user';
+import { FindMyProfileUseCase } from './use_cases/find_my_profile';
 
 @Module({
   controllers: [UsersController],
@@ -16,6 +17,7 @@ import { FindUserUseCase } from './use_cases/find_user';
     UserService,
     CreateUserUseCase,
     UpdateUserUseCase,
+    FindMyProfileUseCase,
     DeleteUserUseCase,
     FindAllUsersUseCase,
     FindUserUseCase,
