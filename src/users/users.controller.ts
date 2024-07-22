@@ -33,11 +33,6 @@ export class UsersController {
     private readonly findMyProfileUseCase: FindMyProfileUseCase
   ) {}
 
-  @Patch('/:id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.updateUserUseCase.execute(id, updateUserDto);
-  }
-  
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.createUserUseCase.execute(createUserDto);
@@ -59,7 +54,10 @@ export class UsersController {
     return this.findUserUseCase.execute(id);
   }
 
-
+  @Patch('/:id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.updateUserUseCase.execute(id, updateUserDto);
+  }
 
   @Delete('/:id')
   remove(@Param('id') id: string) {
