@@ -9,6 +9,7 @@ import { DeleteUserUseCase } from './use_cases/delete_user';
 import { FindAllUsersUseCase } from './use_cases/findAll_users';
 import { FindUserUseCase } from './use_cases/find_user';
 import { FindMyProfileUseCase } from './use_cases/find_my_profile';
+import { UpdateUserPassUseCase } from './use_cases/update_user_pass';
 
 @Module({
   controllers: [UsersController],
@@ -21,6 +22,7 @@ import { FindMyProfileUseCase } from './use_cases/find_my_profile';
     DeleteUserUseCase,
     FindAllUsersUseCase,
     FindUserUseCase,
+    UpdateUserPassUseCase
   ],
 })
 export class UsersModule {}

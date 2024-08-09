@@ -26,13 +26,32 @@ export class UserService {
   }
 
   findOneByEmail(email: string){
-    const userResponse = this.prisma.users.findFirst({
-      where: {
-        email
-      }
-    })
+    try {
+      const userResponse = this.prisma.users.findFirst({
+        where: {
+          email
+        }
+      })
+      
+      
+      return userResponse
+    } catch (error) {
+      return null
+    }
+  }
 
-    return userResponse
+  findOneByUsername(username: string){
+    try {
+      const userResponse = this.prisma.users.findFirst({
+        where: {
+          username
+        }
+      })
+  
+      return userResponse
+    } catch (error) {
+      return null
+    }
   }
 
   create(createUserDto: CreateUserDto): Promise<users> {

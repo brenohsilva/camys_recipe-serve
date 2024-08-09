@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserService } from '../user.service';
 import { encodePassword } from 'src/utils/bcrypt';
@@ -10,6 +10,21 @@ export class CreateUserUseCase {
 
   async execute(data: CreateUserDto) {
     try {
+      const userByEmail = await this.userService.findOneByEmail(data.email)
+      
+      if (userByEmail) {
+        console.log("deu erro no email")
+        return new ConflictException()
+      }
+
+      const userByUsername = await this.userService.findOneByUsername(data.username)
+      
+      
+      if (userByUsername) {
+        console.log("deu erro no username")
+       throw new ConflictException()
+      }
+
       const password = encodePassword(data.password)
         const user = {...data, password}
         const response = await this.userService.create(user)

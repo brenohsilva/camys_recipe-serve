@@ -47,8 +47,8 @@ model users {
   id           Int       @id @default(autoincrement())
   first_name   String?   @db.VarChar(255)
   last_name    String?   @db.VarChar(255)
-  email        String    @db.VarChar(255)
-  username     String    @db.VarChar(255)
+  email        String    @unique(map: "email_UNIQUE") @db.VarChar(255)
+  username     String    @unique(map: "username_UNIQUE") @db.VarChar(255)
   password     String?   @db.Text
   date_created DateTime  @default(now()) @db.Timestamp(0)
   date_updated DateTime  @default(now()) @db.Timestamp(0)
