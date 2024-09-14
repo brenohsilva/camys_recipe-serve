@@ -18,17 +18,18 @@ model ingredients {
 }
 
 model recipes {
-  id          Int           @id @default(autoincrement())
-  users_id    Int
-  name        String?       @db.VarChar(255)
-  image       String?       @db.Text
-  type        Int?
-  category    String?       @db.VarChar(45)
-  time        Int?
-  portions    Int?
-  ingredients ingredients[]
-  users       users         @relation(fields: [users_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "recipes_ibfk_1")
-  steps       steps[]
+  id                  Int                   @id @default(autoincrement())
+  users_id            Int
+  name                String?               @db.VarChar(255)
+  image               String?               @db.Text
+  description         String?               @db.Text
+  type                Int?
+  time                Int?
+  portions            Int?
+  ingredients         ingredients[]
+  users               users                 @relation(fields: [users_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "recipes_ibfk_1")
+  steps               steps[]
+  categories_selected categories_selected[]
 
   @@index([users_id], map: "users_id")
 }
@@ -53,4 +54,18 @@ model users {
   date_created DateTime  @default(now()) @db.Timestamp(0)
   date_updated DateTime  @default(now()) @db.Timestamp(0)
   recipes      recipes[]
+}
+
+model categories {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @db.VarChar(100)
+  categories_selected categories_selected[]
+}
+
+model categories_selected {
+  id            Int        @id @default(autoincrement())
+  categories_id  Int
+  recipes_id     Int
+  categoriesId categories @relation(fields: [categories_id], references: [id])
+  recipesId    recipes    @relation(fields: [recipes_id], references: [id])
 }

@@ -8,7 +8,7 @@ import { PrismaService } from 'src/prisma.service';
 export class RecipesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createRecipeDto: CreateRecipeDto) {
+  create(createRecipeDto: CreateRecipeDto ) {
 
     const recipeResponse = this.prisma.recipes.create({
       data: createRecipeDto

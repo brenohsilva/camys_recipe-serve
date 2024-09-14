@@ -10,19 +10,28 @@ import { FindAllRecipesUseCase } from './use_cases/find_all_recipes';
 import { FindRecipeUseCase } from './use_cases/find_recipe';
 import { DeleteRecipeUseCase } from './use_cases/delete_recipe';
 import { FindCompletedRecipeUseCase } from './use_cases/find_completed_recipe';
+import { CreateSelectedCategoriesUseCase } from 'src/categories/use_cases/create_selected_categories';
+import { IngredientsService } from 'src/ingredients/ingredients.service';
+import { StepsService } from 'src/steps/steps.service';
+import { CategoriesService } from 'src/categories/categories.service';
 
 @Module({
   controllers: [RecipesController],
   providers: [
     RecipesService,
     PrismaService,
+    IngredientsService,
+    StepsService,
+    CategoriesService,
     CreateRecipeUseCase,
     UpdateRecipeUseCase,
     FindAllRecipesUseCase,
     FindRecipeUseCase,
     DeleteRecipeUseCase,
     FindUserByTokenUseCase,
-    FindCompletedRecipeUseCase
+    FindCompletedRecipeUseCase,
+    CreateRecipeUseCase,
+    CreateSelectedCategoriesUseCase
   ],
 })
 export class RecipesModule {}

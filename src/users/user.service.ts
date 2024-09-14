@@ -40,6 +40,21 @@ export class UserService {
     }
   }
 
+  findOneByUserName(username: string){
+    try {
+      const userResponse = this.prisma.users.findFirst({
+        where: {
+         username
+        }
+      })
+  
+      return userResponse
+      
+    } catch (error) {
+      return null
+    }
+  }
+
   findOneByUsername(username: string){
     try {
       const userResponse = this.prisma.users.findFirst({

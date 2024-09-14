@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Body, Param, Delete, Req, Put, UseGuards } from '@nestjs/common';
 import { RecipesService } from './recipes.service';
-import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { CreateRecipeUseCase } from './use_cases/create_recipe';
 import { UpdateRecipeUseCase } from './use_cases/update_recipe';
@@ -15,9 +14,9 @@ export class RecipesController {
   constructor(private readonly recipesService: RecipesService, private readonly createRecipe: CreateRecipeUseCase, private readonly updateRecipe: UpdateRecipeUseCase, private readonly findAllRecipes: FindAllRecipesUseCase, private readonly findOneRecipe: FindRecipeUseCase, private readonly findCompletedRecipe: FindCompletedRecipeUseCase) {}
 
   @UseGuards(AuthGuard)
-  @Post()
-  create(@Body() createRecipeDto: CreateRecipeDto, @Req() request: Request) {
-    return this.createRecipe.execute(request, createRecipeDto);
+  @Post('/create')
+  create(@Body() recipe: any, @Req() request: Request) {
+    return this.createRecipe.execute(request, recipe);
   }
 
   @UseGuards(AuthGuard)

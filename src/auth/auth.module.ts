@@ -7,6 +7,7 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/users/user.service';
 import { PrismaService } from 'src/prisma.service';
 import { LoginUseCase } from './use_cases/login';
+import { FindUserByUserNameUseCase } from 'src/users/use_cases/find_user_by_username';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { LoginUseCase } from './use_cases/login';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, PrismaService, SignInUserUseCase, LoginUseCase, JwtService]
+  providers: [AuthService, UserService, PrismaService, SignInUserUseCase, LoginUseCase, JwtService, FindUserByUserNameUseCase]
 })
 export class AuthModule {}

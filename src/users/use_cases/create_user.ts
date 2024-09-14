@@ -13,7 +13,6 @@ export class CreateUserUseCase {
       const userByEmail = await this.userService.findOneByEmail(data.email)
       
       if (userByEmail) {
-        console.log("deu erro no email")
         return new ConflictException()
       }
 
@@ -21,7 +20,6 @@ export class CreateUserUseCase {
       
       
       if (userByUsername) {
-        console.log("deu erro no username")
        throw new ConflictException()
       }
 
