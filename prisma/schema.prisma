@@ -30,6 +30,7 @@ model recipes {
   users               users                 @relation(fields: [users_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "recipes_ibfk_1")
   steps               steps[]
   categories_selected categories_selected[]
+  favories            favories[]
 
   @@index([users_id], map: "users_id")
 }
@@ -45,15 +46,16 @@ model steps {
 }
 
 model users {
-  id           Int       @id @default(autoincrement())
-  first_name   String?   @db.VarChar(255)
-  last_name    String?   @db.VarChar(255)
-  email        String    @unique(map: "email_UNIQUE") @db.VarChar(255)
-  username     String    @unique(map: "username_UNIQUE") @db.VarChar(255)
-  password     String?   @db.Text
-  date_created DateTime  @default(now()) @db.Timestamp(0)
-  date_updated DateTime  @default(now()) @db.Timestamp(0)
+  id           Int        @id @default(autoincrement())
+  first_name   String?    @db.VarChar(255)
+  last_name    String?    @db.VarChar(255)
+  email        String     @unique(map: "email_UNIQUE") @db.VarChar(255)
+  username     String     @unique(map: "username_UNIQUE") @db.VarChar(255)
+  password     String?    @db.Text
+  date_created DateTime   @default(now()) @db.Timestamp(0)
+  date_updated DateTime   @default(now()) @db.Timestamp(0)
   recipes      recipes[]
+  favories     favories[]
 }
 
 model categories {
@@ -64,8 +66,16 @@ model categories {
 
 model categories_selected {
   id            Int        @id @default(autoincrement())
-  categories_id  Int
-  recipes_id     Int
-  categoriesId categories @relation(fields: [categories_id], references: [id])
-  recipesId    recipes    @relation(fields: [recipes_id], references: [id])
+  categories_id Int
+  recipes_id    Int
+  categoriesId  categories @relation(fields: [categories_id], references: [id])
+  recipesId     recipes    @relation(fields: [recipes_id], references: [id])
+}
+
+model favories {
+  id         Int     @id @default(autoincrement())
+  users_id   Int
+  recipes_id Int
+  usersId    users   @relation(fields: [users_id], references: [id])
+  recipeId   recipes @relation(fields: [recipes_id], references: [id])
 }

@@ -44,10 +44,32 @@ export class RecipesService {
     }
   }
 
-  findAll(id: number) {
+  findAll() {
     const recipeResponse = this.prisma.recipes.findMany({
-      where: {
-        users_id: id
+      include: {
+        ingredients: {
+          select: {
+            id: true,
+            name: true,
+            type: true
+          }
+        },
+        steps: {
+          select: {
+            id: true,
+            step: true,
+            type: true
+          }
+        },
+        categories_selected: {
+          select: {
+            categoriesId: {
+              select: {
+                name: true
+              }
+            }
+          }
+        }
       }
     })
     return recipeResponse;
@@ -57,6 +79,35 @@ export class RecipesService {
     const recipeResponse = this.prisma.recipes.findFirst({
       where: {
         id
+      },
+      include: {
+        users: {
+          select: {
+            username: true
+          }
+        },
+        ingredients: {
+          select: {
+            name: true,
+            type: true
+          }
+        },
+        steps: {
+          select: {
+            step: true,
+            type: true
+          }
+        },
+        categories_selected: {
+          select: {
+            categoriesId: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
+          }
+        }
       }
     })
     return recipeResponse;

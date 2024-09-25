@@ -52,7 +52,7 @@ export class UsersController {
   findMyProfile(@Req() request: Request){
     return this.findMyProfileUseCase.execute(request)
   }
-  @UseGuards(AuthGuard)
+ 
   @Get('/:id')
   findOne(@Param('id') id: string) {
     return this.findUserUseCase.execute(id);

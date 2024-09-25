@@ -1,5 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Param, Delete, Req, Put, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Req,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { RecipesService } from './recipes.service';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { CreateRecipeUseCase } from './use_cases/create_recipe';
@@ -11,7 +21,14 @@ import { FindCompletedRecipeUseCase } from './use_cases/find_completed_recipe';
 
 @Controller('recipes')
 export class RecipesController {
-  constructor(private readonly recipesService: RecipesService, private readonly createRecipe: CreateRecipeUseCase, private readonly updateRecipe: UpdateRecipeUseCase, private readonly findAllRecipes: FindAllRecipesUseCase, private readonly findOneRecipe: FindRecipeUseCase, private readonly findCompletedRecipe: FindCompletedRecipeUseCase) {}
+  constructor(
+    private readonly recipesService: RecipesService,
+    private readonly createRecipe: CreateRecipeUseCase,
+    private readonly updateRecipe: UpdateRecipeUseCase,
+    private readonly findAllRecipes: FindAllRecipesUseCase,
+    private readonly findOneRecipe: FindRecipeUseCase,
+    private readonly findCompletedRecipe: FindCompletedRecipeUseCase,
+  ) {}
 
   @UseGuards(AuthGuard)
   @Post('/create')
@@ -25,13 +42,11 @@ export class RecipesController {
     return this.updateRecipe.execute(id, updateRecipeDto);
   }
 
-  @UseGuards(AuthGuard)
   @Get()
-  findAll(@Req() request: Request) {
-    return this.findAllRecipes.execute(request);
+  findAll() {
+    return this.findAllRecipes.execute();
   }
-  
-  @UseGuards(AuthGuard)
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.findOneRecipe.execute(id);
