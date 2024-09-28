@@ -23,6 +23,10 @@ export class FavoritesService {
       const response = await this.prisma.favories.findMany({
         where: {
           users_id
+        },
+        select: {
+          id: true,
+          recipeId: true
         }
       })
       return response
@@ -53,6 +57,7 @@ async findOne(users_id: number, recipes_id: number) {
 
   async remove(id: number) {
     try {
+      console.log(id)
       const response = await this.prisma.favories.delete({
         where: {
           id
