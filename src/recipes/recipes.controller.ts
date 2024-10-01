@@ -18,6 +18,7 @@ import { FindAllRecipesUseCase } from './use_cases/find_all_recipes';
 import { FindRecipeUseCase } from './use_cases/find_recipe';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { FindCompletedRecipeUseCase } from './use_cases/find_completed_recipe';
+import { FindAllUserRecipesUseCase } from './use_cases/find_all_user_recipes';
 
 @Controller('recipes')
 export class RecipesController {
@@ -28,6 +29,7 @@ export class RecipesController {
     private readonly findAllRecipes: FindAllRecipesUseCase,
     private readonly findOneRecipe: FindRecipeUseCase,
     private readonly findCompletedRecipe: FindCompletedRecipeUseCase,
+    private readonly findAllUserRecipe: FindAllUserRecipesUseCase
   ) {}
 
   @UseGuards(AuthGuard)
@@ -47,12 +49,20 @@ export class RecipesController {
     return this.findAllRecipes.execute();
   }
 
+  @UseGuards(AuthGuard)
+  @Get('/all')
+  findMyRecipes(@Req() request: Request) {
+    return this.findAllUserRecipe.execute(request);
+  }
+
+  @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.findOneRecipe.execute(id);
   }
 
-  // @UseGuards(AuthGuard)
+
+  @UseGuards(AuthGuard)
   @Get(':id/completed')
   findCompleted(@Param('id') id: string) {
     return this.findCompletedRecipe.execute(id);

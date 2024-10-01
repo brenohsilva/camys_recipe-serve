@@ -16,6 +16,6 @@ export class FindAllFavoritesUseCase {
     if (response) {
         return {recipes: response, status_code: 200}
     }
-    return {message: "there is no favorite recipe", status: 404};
+    return {message: "there is no favorite recipe", status_code: 404};
   }
 }

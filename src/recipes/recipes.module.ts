@@ -14,6 +14,7 @@ import { CreateSelectedCategoriesUseCase } from 'src/categories/use_cases/create
 import { IngredientsService } from 'src/ingredients/ingredients.service';
 import { StepsService } from 'src/steps/steps.service';
 import { CategoriesService } from 'src/categories/categories.service';
+import { FindAllUserRecipesUseCase } from './use_cases/find_all_user_recipes';
 
 @Module({
   controllers: [RecipesController],
@@ -31,7 +32,8 @@ import { CategoriesService } from 'src/categories/categories.service';
     FindUserByTokenUseCase,
     FindCompletedRecipeUseCase,
     CreateRecipeUseCase,
-    CreateSelectedCategoriesUseCase
+    CreateSelectedCategoriesUseCase,
+    FindAllUserRecipesUseCase
   ],
 })
 export class RecipesModule {}

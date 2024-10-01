@@ -138,5 +138,16 @@ export class RecipesService {
     return recipeResponse
   }
 
+  findAllUserRecipes(user_id: number){
+    const recipes = this.prisma.recipes.findMany({
+      where: {
+        users_id: user_id
+      }
+    })
+
+    return recipes
+
+  }
+
 
 }

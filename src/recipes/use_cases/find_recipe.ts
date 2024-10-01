@@ -9,11 +9,12 @@ export class FindRecipeUseCase {
 
   async execute(id: string) {
     try {
+     
         const recipe = await this.recipeService.findOne(Number(id))
         return recipe
     } catch (error) {
         console.error(error)
-        return 'Failed to find the recipe'
+        return {message:'Failed to find the recipe', status_code: 400}
     }
   }
 }
